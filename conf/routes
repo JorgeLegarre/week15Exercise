@@ -1,0 +1,17 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#AJAX
+GET     /ajax						controllers.AjaxWork.index()
+GET   	/books           			controllers.AjaxWork.getBooks()
+GET   	/books/:id             		controllers.AjaxWork.getBook(id: Int)
+PUT   	/books           			controllers.AjaxWork.putBook()
+DELETE	/books/:id             		controllers.AjaxWork.deleteBook(id: Int)
+
+#AutoFilledForm
+GET       /autoForm            	 	controllers.FormsWork.showAutoForm()
+POST      /autoForm            	 	controllers.FormsWork.autoForm()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

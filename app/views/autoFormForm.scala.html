@@ -1,0 +1,53 @@
+@()
+
+@main("Jason exercise") {
+	<div class="container">
+		<form method="POST" actio="@routes.FormsWork.autoForm">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="isbn">Isbn*:</label>
+						<input type="number" name="isbn" value="@flash.get("isbn")">
+						@if(flash.containsKey("isbn-error")){
+							 <span class="error">@flash.get("isbn-error")</span>
+						}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="isbn">Title*:</label>
+						<input type="text" name="title" value="@flash.get("title")">
+						@if(flash.containsKey("title-error")){
+							 <span class="error">@flash.get("title-error")</span>
+						}
+			</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="isbn">Author*:</label>
+						<input type="text" name="author" value="@flash.get("author")">
+						@if(flash.containsKey("author-error")){
+							 <span class="error">@flash.get("author-error")</span>
+						}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="isbn">Num. of Pages:</label>
+						<input type="number" name="nPages" value="@flash.get("nPages")">
+						@if(flash.containsKey("nPages-error")){
+							 <span class="error">@flash.get("nPages-error")</span>
+						}
+					</div>
+				</div>
+			</div>
+			<button type="submit">Aceptar</button>
+		</form>
+	</div>
+}

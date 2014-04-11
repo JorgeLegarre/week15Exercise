@@ -1,0 +1,91 @@
+@(message: String)
+ 
+@main("Welcome to Play") {
+ 
+    <ul id="books"></ul>
+    
+    <hr>
+    
+    <button id="create-new-book">Create new</button>
+    
+    <script>
+		function loadListOfBooks(){
+			$('#books').empty();
+        	
+			$.get('/books', function(books){
+				$.each(books, function(arrayIndex, book){
+					$('<li>')
+					.append(book.isbn)
+					.append(', ')
+					.append(book.author)
+					.append(', ')
+					.append(book.title)
+					.append(' (')
+					.append(book.id)
+					.append(')')
+					.append(' ')
+					.append(
+						$('<button>')
+						.text('GET')
+						.click(function(){
+							location.href = "/books/" + book.id;
+						})
+					)
+					.append(' ')
+					.append(
+						$('<button>')
+						.text('Delete')
+						.click(function(){
+							$.ajax({
+								url: '/books/' + book.id,
+								type: 'DELETE'
+							})
+							.always(function(){
+								loadListOfBooks();
+							});
+						})
+					)
+					.append(' ')
+					.append(
+						$('<button>')
+						.text('Update')
+						.click(function(){
+							console.dir(book);
+							$.ajax({
+								url: '/books',
+								type: 'PUT',
+								data: {
+									id:     book.id,
+									isbn:   prompt("Isbn please?", book.isbn),
+									title:  prompt("Title please?", book.title),
+									author: prompt("Author please?", book.author),
+									nPages: prompt("Num of pages please?", book.nPages)
+								}
+							})
+							.always(loadListOfBooks);
+						})
+					)
+					.appendTo('#books');
+				});
+			});
+    	}
+ 
+    	$(loadListOfBooks);
+    	
+		$('#create-new-book').click(function(){
+			$.ajax({
+				url: '/books',
+				type: 'PUT',
+				data: {
+					id:     0,
+					isbn:   prompt("Isbn please?"),
+					title:  prompt("Title please?"),
+					author: prompt("Author please?"),
+					nPages: prompt("Num of pages please?")
+				}
+			})
+			.always(loadListOfBooks);
+		});
+    </script>
+ 
+}
